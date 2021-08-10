@@ -1,8 +1,8 @@
-package uag.mcc.ai.fuzzy.service;
+package uag.mcc.ai.fuzzy.service_p;
 
 import lombok.extern.slf4j.Slf4j;
-import uag.mcc.ai.fuzzy.model.Chromosome;
-import uag.mcc.ai.fuzzy.model.Generation;
+import uag.mcc.ai.fuzzy.model_p.Chromosome;
+import uag.mcc.ai.fuzzy.model_p.Generation;
 import uag.mcc.ai.fuzzy.utils.BitUtils;
 import uag.mcc.ai.fuzzy.utils.RandomizeUtils;
 

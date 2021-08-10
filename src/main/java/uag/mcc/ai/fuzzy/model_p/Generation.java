@@ -1,4 +1,4 @@
-package uag.mcc.ai.fuzzy.model;
+package uag.mcc.ai.fuzzy.model_p;
 
 import lombok.extern.slf4j.Slf4j;
 

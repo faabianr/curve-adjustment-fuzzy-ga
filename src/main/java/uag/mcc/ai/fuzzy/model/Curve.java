@@ -1,24 +1,16 @@
 package uag.mcc.ai.fuzzy.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class Curve {
 
+    private String seriesName;
     private List<Double> xValues;
     private List<Double> yValues;
-
-    public Curve() {
-        xValues = new ArrayList<>();
-        yValues = new ArrayList<>();
-    }
-
-    public void addPoint(double x, double y) {
-        xValues.add(x);
-        yValues.add(y);
-    }
 
 }
