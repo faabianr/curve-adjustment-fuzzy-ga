@@ -1,12 +1,12 @@
 package uag.mcc.ai.fuzzy.model;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.ToString;
 
 import java.util.Arrays;
 
-@Getter
+@Data
 @Builder
 @ToString
 public class Chromosome {
@@ -71,9 +71,11 @@ public class Chromosome {
 
         aptitude = 0.0;
 
-        for (int i = 0; i < curve.getYValues().size(); i++) {
+        for (int i = 0; i < referenceCurve.getYValues().size() - 1; i++) {
             double y1 = referenceCurve.getYValues().get(i);
-            double y2 = curve.getYValues().get(i);
+            // reference curves only have 12 points, but we generate curves with 120 points
+            // we need to multiply the i value * 10 to get intermediate points for comparison
+            double y2 = curve.getYValues().get(i * 10);
 
             aptitude += Math.abs(y1 - y2);
         }

@@ -25,6 +25,9 @@ public class CurveSynthesis {
     public void execute() {
         log.info("starting Takagi Sugeno Network Sample");
 
+        tempChromosome.setReferenceCurve(tempReferenceCurve());
+        rainChromosome.setReferenceCurve(rainReferenceCurve());
+
         tempChromosome.evaluate();
         rainChromosome.evaluate();
 
