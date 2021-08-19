@@ -8,6 +8,7 @@ import uag.mcc.ai.fuzzy.model.Chromosome;
 import uag.mcc.ai.fuzzy.model.Curve;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Builder
 @Slf4j
@@ -15,7 +16,7 @@ public class CurveSynthesis {
 
     private static final int TOTAL_POINTS = 120;
 
-    private final Chromosome tempChromsome;
+    private final Chromosome tempChromosome;
     private final Chromosome rainChromosome;
 
     @Builder.Default
@@ -24,7 +25,7 @@ public class CurveSynthesis {
     public void execute() {
         log.info("starting Takagi Sugeno Network Sample");
 
-        tempChromsome.evaluate();
+        tempChromosome.evaluate();
         rainChromosome.evaluate();
 
         ChartData tempMfChartData = ChartData.builder()
@@ -33,7 +34,7 @@ public class CurveSynthesis {
                 .title("Temperature Membership Functions")
                 .xAxisTitle(ChartData.X)
                 .yAxisTitle(ChartData.Y)
-                .curves(Arrays.asList(tempChromsome.getMf1Curve(), tempChromsome.getMf2Curve(), tempChromsome.getMf3Curve()))
+                .curves(Arrays.asList(tempChromosome.getMf1Curve(), tempChromosome.getMf2Curve(), tempChromosome.getMf3Curve()))
                 .build();
 
         ChartData tempChartData = ChartData.builder()
@@ -42,12 +43,21 @@ public class CurveSynthesis {
                 .title("Temperature")
                 .xAxisTitle("Month")
                 .yAxisTitle("Temperature")
-                .curves(Arrays.asList(tempChromsome.getCurve(), tempReferenceCurve()))
+                .curves(Arrays.asList(tempChromosome.getCurve(), tempReferenceCurve()))
+                .build();
+
+        ChartData tempErrorChartData = ChartData.builder()
+                .styleConfig(ChartStyleConfig.builder().build())
+                .index(2)
+                .title("Temperature Error")
+                .xAxisTitle("Generation")
+                .yAxisTitle("Error")
+                .curves(Collections.singletonList(new Curve("Error", Collections.singletonList(0.0), Collections.singletonList(tempChromosome.getAptitude()))))
                 .build();
 
         ChartData rainMfChartData = ChartData.builder()
                 .styleConfig(ChartStyleConfig.builder().build())
-                .index(2)
+                .index(3)
                 .title("Rainfall Membership Functions")
                 .xAxisTitle(ChartData.X)
                 .yAxisTitle(ChartData.Y)
@@ -56,15 +66,24 @@ public class CurveSynthesis {
 
         ChartData rainChartData = ChartData.builder()
                 .styleConfig(ChartStyleConfig.builder().build())
-                .index(3)
+                .index(4)
                 .title("Rainfall")
                 .xAxisTitle("Month")
-                .yAxisTitle("Precipitacion")
+                .yAxisTitle("Precipitation")
                 .curves(Arrays.asList(rainChromosome.getCurve(), rainReferenceCurve()))
                 .build();
 
+        ChartData rainErrorChartData = ChartData.builder()
+                .styleConfig(ChartStyleConfig.builder().build())
+                .index(5)
+                .title("Rainfall Error")
+                .xAxisTitle("Generation")
+                .yAxisTitle("Error")
+                .curves(Collections.singletonList(new Curve("Error", Collections.singletonList(0.0), Collections.singletonList(rainChromosome.getAptitude()))))
+                .build();
 
-        chartService.displayCharts(tempMfChartData, tempChartData, rainMfChartData, rainChartData);
+
+        chartService.displayCharts(tempMfChartData, tempChartData, tempErrorChartData, rainMfChartData, rainChartData, rainErrorChartData);
 
     }
 

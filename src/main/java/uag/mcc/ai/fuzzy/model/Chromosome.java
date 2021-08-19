@@ -31,6 +31,7 @@ public class Chromosome {
     private Curve mf1Curve;
     private Curve mf2Curve;
     private Curve mf3Curve;
+    private Double aptitude;
 
     public void evaluate() {
         Double[] x = new Double[TOTAL_POINTS];
@@ -59,6 +60,23 @@ public class Chromosome {
         mf2Curve = new Curve("mf2(x)", Arrays.asList(x), Arrays.asList(mf2));
         mf3Curve = new Curve("mf3(x)", Arrays.asList(x), Arrays.asList(mf3));
         curve = new Curve("y(x)", Arrays.asList(x), Arrays.asList(y));
+
+        calculateAptitude();
+    }
+
+    public void calculateAptitude() {
+        if (referenceCurve == null) {
+            referenceCurve = curve;
+        }
+
+        aptitude = 0.0;
+
+        for (int i = 0; i < curve.getYValues().size(); i++) {
+            double y1 = referenceCurve.getYValues().get(i);
+            double y2 = curve.getYValues().get(i);
+
+            aptitude += Math.abs(y1 - y2);
+        }
     }
 
 }

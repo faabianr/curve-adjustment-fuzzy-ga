@@ -44,7 +44,7 @@ public class Application {
                 .build();
 
         CurveSynthesis curveSynthesis = CurveSynthesis.builder()
-                .tempChromsome(tempChromosome)
+                .tempChromosome(tempChromosome)
                 .rainChromosome(rainChromosome)
                 .build();
 
